@@ -27,3 +27,4 @@
    terraform.rc
     Исключает файлы вида выше
 
+#new line
