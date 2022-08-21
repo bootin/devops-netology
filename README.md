@@ -28,3 +28,4 @@
     Исключает файлы вида выше
 
 #new line
+#commit from PyCharm in branch 'fix'
