@@ -48,13 +48,16 @@
 
 2. Ознакомьтесь с опциями node_exporter и выводом `/metrics` по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
     CPU:
+    ```bash
     # TYPE node_cpu_seconds_total counter
     node_cpu_seconds_total{cpu="[cpu_id_number]",mode="idle"} 
     node_cpu_seconds_total{cpu="[cpu_id_number]",mode="system"} 
     node_cpu_seconds_total{cpu="0",mode="user"}
     # TYPE process_cpu_seconds_total counter
     process_cpu_seconds_total
+    ```
     Memory:
+    ```bash
     # TYPE node_memory_MemTotal_bytes gauge
     node_memory_MemTotal_bytes
     # TYPE node_memory_MemFree_bytes gauge
@@ -69,7 +72,9 @@
     node_memory_SwapFree_bytes 
     # TYPE node_memory_SwapTotal_bytes gauge
     node_memory_SwapTotal_bytes
+    ```
     Disk:
+    ```bash
     # TYPE node_disk_io_time_seconds_total counter
     node_disk_io_time_seconds_total{device="[device_name]"}
     # TYPE node_filesystem_avail_bytes gauge
@@ -77,11 +82,14 @@
     node_filesystem_free_bytes{..}
     node_filesystem_files_free{..}
     node_filesystem_device_error{..}
+    ```
     Network:
+    ```bash
     # TYPE node_network_receive_errs_total counter
     node_network_receive_errs_total{device="[device_name]"}
     # TYPE node_network_transmit_drop_total counter
     node_network_transmit_drop_total{device="[device_name]"}
+    ```
     
     
 3. Установите в свою виртуальную машину [Netdata](https://github.com/netdata/netdata). Воспользуйтесь [готовыми пакетами](https://packagecloud.io/netdata/netdata/install) для установки (`sudo apt install -y netdata`). После успешной установки:
