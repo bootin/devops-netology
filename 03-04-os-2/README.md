@@ -38,13 +38,15 @@
     Description=node_exporter
 
     [Service]
-    EnvironmentFile=/etc/default/node_exporter
-    ExecStart=/opt/node_exporter/node_exporter
+    EnvironmentFile=-/etc/default/node_exporter
+    ExecStart=/opt/node_exporter/node_exporter $EXTRA_OPTS
 
     [Install]
     WantedBy=default.target
     
     ```
+    Параметры можем передавать через фал `/etc/default/node_exporter` либо через `systemctl edit node_exporter`.
+
 
 2. Ознакомьтесь с опциями node_exporter и выводом `/metrics` по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
     CPU:
