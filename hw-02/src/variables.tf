@@ -1,3 +1,18 @@
+###Input variables:
+variable "env" { 
+type = string
+default = "develop" 
+}
+variable "project" { 
+type = string
+default = "platform"
+}
+variable "role" {
+type = list(string)
+default = ["web", "db"]
+}
+
+
 ###cloud vars
 variable "token" {
   type        = string
@@ -33,12 +48,12 @@ variable "vpc_name" {
 
 
 ###ssh vars
-
-variable "vms_ssh_root_key" {
-  type        = string
-  default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDA4aj7o9wjD+hqKdx74D0+oVSEEiWpdbvCqXgUMXhL/sOHniaRv8juoccxsR6qGZBwyzSE4GJcMGK6a0mTPY5Wzzn18NfniLdsyVPJP242NjAaR7jipCy3dKm6DZRW43nNhQGoTerPRUgUfWWZD+zO//lfUsjevf7fVHXk1OKDtVr1BqvXqIeOi0Ry9vKEQITVELww8vNgy7g4G6vKr1JtB9TUYeWfx5tNJo5UyZ92T8LhqOW4lMRGLMW4uszdNbozqCNxyE/7o1eYq9+1tc+p1mtEevCefyReUv5wHM3wdz6lEFEI78f0+/8TNGE2o8/j6ii/QWygM3ZWen2UkwWdnjmyVhpkIVLiGoer4l7C8ByfaN0zG5rerdt1lunvBnc4jQ1mvRhCMhNnxTmfT7Cuw10kXuL5CcPvq0gtK6fagwO7CAAn3qDLJN1VMMkCrOaPsYlrQUu53exJEeGDpBoNW6nqfCUR/8tSM7BIBEPD2uuZ5JbGBXqrC6zi9QRnQFNrJR6YGTjvezXHEZduvEPLRmUmiBVgzFMywD9TnW6qIhqa2nrvugRrQxPWaghszXQDwTACioNNcMX47Cr9W/Wpfy02OtL8JNpfqkmvp23b4MTq5Lfav9buGvz+3AFx8FgRSQkKLD8FKvWuOyYd9aEEQp7BjXHHWfMSFKZ/UBX6pQ== terraform-yc"
-  description = "ssh-keygen -t ed25519"
-}
+#depricated
+#variable "vms_ssh_root_key" {
+#  type        = string
+#  default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDA4aj7o9wjD+hqKdx74D0+oVSEEiWpdbvCqXgUMXhL/sOHniaRv8juoccxsR6qGZBwyzSE4GJcMGK6a0mTPY5Wzzn18NfniLdsyVPJP242NjAaR7jipCy3dKm6DZRW43nNhQGoTerPRUgUfWWZD+zO//lfUsjevf7fVHXk1OKDtVr1BqvXqIeOi0Ry9vKEQITVELww8vNgy7g4G6vKr1JtB9TUYeWfx5tNJo5UyZ92T8LhqOW4lMRGLMW4uszdNbozqCNxyE/7o1eYq9+1tc+p1mtEevCefyReUv5wHM3wdz6lEFEI78f0+/8TNGE2o8/j6ii/QWygM3ZWen2UkwWdnjmyVhpkIVLiGoer4l7C8ByfaN0zG5rerdt1lunvBnc4jQ1mvRhCMhNnxTmfT7Cuw10kXuL5CcPvq0gtK6fagwO7CAAn3qDLJN1VMMkCrOaPsYlrQUu53exJEeGDpBoNW6nqfCUR/8tSM7BIBEPD2uuZ5JbGBXqrC6zi9QRnQFNrJR6YGTjvezXHEZduvEPLRmUmiBVgzFMywD9TnW6qIhqa2nrvugRrQxPWaghszXQDwTACioNNcMX47Cr9W/Wpfy02OtL8JNpfqkmvp23b4MTq5Lfav9buGvz+3AFx8FgRSQkKLD8FKvWuOyYd9aEEQp7BjXHHWfMSFKZ/UBX6pQ== terraform-yc"
+#  description = "ssh-keygen -t ed25519"
+#}
 
 variable "image_name" {
 type = string
@@ -46,11 +61,12 @@ description = "ubuntu release name"
 default = "ubuntu-2004-lts"
 }
 
-variable "vm_web_name" {
-type = string
-description = "netology develop VM name"
-default = "netology-develop-platform-web"
-}
+#depricated
+#variable "vm_web_name" {
+#type = string
+#description = "netology develop VM name"
+#default = "netology-develop-platform-web"
+#}
 
 variable "vm_web_platform_id" {
 type = string
@@ -58,22 +74,50 @@ description = "what YC platform to use"
 default = "standard-v1"
 }
 
-variable "vm_web_cores" {
-type = number
-description = "How mach cores to use"
-default = 2
+#depricated
+#variable "vm_web_cores" {
+#type = number
+#description = "How mach cores to use"
+#default = 2
+#}
+
+#depricated
+#variable "vm_web_memory" {
+#type = number
+#description = "How mach memory to use "
+#default = 1
+#}
+
+#variable "vm_web_core_fraction" {
+#type = number
+#description = "How mach cores to use"
+#default = 5
+#}
+
+#task 6
+variable "vms_resources" {
+  type = map(map(number))
+  default = {
+    vm_web_resources = {
+      cores = 2
+      memory = 1
+      fraction = 5
+    }
+    vm_db_resources = {
+      cores = 2
+      memory = 2
+      fraction = 20
+    }
+  }
 }
 
-variable "vm_web_memory" {
-type = number
-description = "How mach memory to use "
-default = 1
+variable "vms_metadata" {
+  type = map(string)
+  default = {
+    serial-port-enable = 1
+    ssh-keys           = "ubuntu:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDA4aj7o9wjD+hqKdx74D0+oVSEEiWpdbvCqXgUMXhL/sOHniaRv8juoccxsR6qGZBwyzSE4GJcMGK6a0mTPY5Wzzn18NfniLdsyVPJP242NjAaR7jipCy3dKm6DZRW43nNhQGoTerPRUgUfWWZD+zO//lfUsjevf7fVHXk1OKDtVr1BqvXqIeOi0Ry9vKEQITVELww8vNgy7g4G6vKr1JtB9TUYeWfx5tNJo5UyZ92T8LhqOW4lMRGLMW4uszdNbozqCNxyE/7o1eYq9+1tc+p1mtEevCefyReUv5wHM3wdz6lEFEI78f0+/8TNGE2o8/j6ii/QWygM3ZWen2UkwWdnjmyVhpkIVLiGoer4l7C8ByfaN0zG5rerdt1lunvBnc4jQ1mvRhCMhNnxTmfT7Cuw10kXuL5CcPvq0gtK6fagwO7CAAn3qDLJN1VMMkCrOaPsYlrQUu53exJEeGDpBoNW6nqfCUR/8tSM7BIBEPD2uuZ5JbGBXqrC6zi9QRnQFNrJR6YGTjvezXHEZduvEPLRmUmiBVgzFMywD9TnW6qIhqa2nrvugRrQxPWaghszXQDwTACioNNcMX47Cr9W/Wpfy02OtL8JNpfqkmvp23b4MTq5Lfav9buGvz+3AFx8FgRSQkKLD8FKvWuOyYd9aEEQp7BjXHHWfMSFKZ/UBX6pQ== terraform-yc"
+  }
 }
 
-variable "vm_web_core_fraction" {
-type = number
-description = "How mach cores to use"
-default = 5
-}
 
 

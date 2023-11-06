@@ -97,7 +97,23 @@ platform = "51.250.93.196"
 1. В файле locals.tf опишите в **одном** local-блоке имя каждой ВМ, используйте интерполяцию ${..} с несколькими переменными по примеру из лекции.
 2. Замените переменные с именами ВМ из файла variables.tf на созданные вами local-переменные.
 3. Примените изменения.
+```txt
+locals {
+vm_web_name_local = "netology-${ var.env }-${ var.project }-${var.role[0]}"
+vm_db_name_local = "netology-${ var.env }-${ var.project }-${var.role[1]}"
+}
 
+...
+name        = local.vm_db_name_local
+...
+name        = local.vm_web_name_local
+...
+```
+```bash
+$ terraform apply
+...
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+```
 
 ### Задание 6
 
@@ -105,6 +121,31 @@ platform = "51.250.93.196"
 2. Также поступите с блоком **metadata {serial-port-enable, ssh-keys}**, эта переменная должна быть общая для всех ваших ВМ.
 3. Найдите и удалите все более не используемые переменные проекта.
 4. Проверьте terraform plan. Изменений быть не должно.
+```txt
+variable "vms_resources" {
+  type = map(map(number))
+  default = {
+    vm_web_resources = {
+      cores = 2
+      memory = 1
+      fraction = 5
+    }
+    vm_db_resources = {
+      cores = 2
+      memory = 2
+      fraction = 20
+    }
+  }
+}
+
+variable "vms_metadata" {
+  type = map(string)
+  default = {
+    serial-port-enable = 1
+    ssh-keys           = "ubuntu:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDA4aj7o9wjD+hqKdx74D0+oVSEEiWpdbvCqXgUMXhL/sOHniaRv8juoccxsR6qGZBwyzSE4GJcMGK6a0mTPY5Wzzn18NfniLdsyVPJP242NjAaR7jipCy3dKm6DZRW43nNhQGoTerPRUgUfWWZD+zO//lfUsjevf7fVHXk1OKDtVr1BqvXqIeOi0Ry9vKEQITVELww8vNgy7g4G6vKr1JtB9TUYeWfx5tNJo5UyZ92T8LhqOW4lMRGLMW4uszdNbozqCNxyE/7o1eYq9+1tc+p1mtEevCefyReUv5wHM3wdz6lEFEI78f0+/8TNGE2o8/j6ii/QWygM3ZWen2UkwWdnjmyVhpkIVLiGoer4l7C8ByfaN0zG5rerdt1lunvBnc4jQ1mvRhCMhNnxTmfT7Cuw10kXuL5CcPvq0gtK6fagwO7CAAn3qDLJN1VMMkCrOaPsYlrQUu53exJEeGDpBoNW6nqfCUR/8tSM7BIBEPD2uuZ5JbGBXqrC6zi9QRnQFNrJR6YGTjvezXHEZduvEPLRmUmiBVgzFMywD9TnW6qIhqa2nrvugRrQxPWaghszXQDwTACioNNcMX47Cr9W/Wpfy02OtL8JNpfqkmvp23b4MTq5Lfav9buGvz+3AFx8FgRSQkKLD8FKvWuOyYd9aEEQp7BjXHHWfMSFKZ/UBX6pQ== terraform-yc"
+  }
+}
+```
 
 ------
 
