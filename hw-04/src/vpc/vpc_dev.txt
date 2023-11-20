@@ -1,0 +1,94 @@
+<!-- BEGIN_TF_DOCS -->
+== Requirements
+
+The following requirements are needed by this module:
+
+- [[requirement_terraform]] <<requirement_terraform,terraform>> (>= 0.13)
+
+== Providers
+
+The following providers are used by this module:
+
+- [[provider_yandex]] <<provider_yandex,yandex>>
+
+== Modules
+
+No modules.
+
+== Resources
+
+The following resources are used by this module:
+
+- https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_network[yandex_vpc_network.develop] (resource)
+- https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_subnet[yandex_vpc_subnet.develop] (resource)
+
+== Required Inputs
+
+The following input variables are required:
+
+=== [[input_cidr]] <<input_cidr,cidr>>
+
+Description: n/a
+
+Type: `string`
+
+=== [[input_token]] <<input_token,token>>
+
+Description: OAuth-token; https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token
+
+Type: `string`
+
+=== [[input_zone]] <<input_zone,zone>>
+
+Description: n/a
+
+Type: `string`
+
+== Optional Inputs
+
+The following input variables are optional (have default values):
+
+=== [[input_env_name]] <<input_env_name,env_name>>
+
+Description: n/a
+
+Type: `string`
+
+Default: `null`
+
+=== [[input_instance_name]] <<input_instance_name,instance_name>>
+
+Description: n/a
+
+Type: `string`
+
+Default: `"vm"`
+
+=== [[input_labels]] <<input_labels,labels>>
+
+Description: for dynamic block 'labels'
+
+Type: `map(string)`
+
+Default: `{}`
+
+=== [[input_platform]] <<input_platform,platform>>
+
+Description: Example to validate VM platform.
+
+Type: `string`
+
+Default: `"standard-v1"`
+
+== Outputs
+
+The following outputs are exported:
+
+=== [[output_vpc_network]] <<output_vpc_network,vpc_network>>
+
+Description: n/a
+
+=== [[output_vpc_subnet]] <<output_vpc_subnet,vpc_subnet>>
+
+Description: n/a
+<!-- END_TF_DOCS -->
